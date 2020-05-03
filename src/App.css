@@ -126,6 +126,13 @@ button:hover {
   border-radius: 20px;
   position: relative;
   color: #17181a;
+  transition: line-height 0.45s;
+}
+
+.table-row:hover{
+  line-height:50px;
+  -webkit-box-shadow: -2px 4px 24px 0px #000000; 
+  box-shadow: -2px 4px 24px 0px #000000;
 }
 
 .table-header > span {
@@ -163,6 +170,14 @@ button:hover {
   color: #bbc1c9;
   background-color: transparent;
   border-radius: 10px;
+  display: flex;
+  line-height: 24px;
+  white-space: nowrap;
+  margin: 10px 0;
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid #8c7a7a;
+  position: relative;
 }
 
 .button-search {

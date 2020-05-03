@@ -101,7 +101,7 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <div className="table-row table-head">
+        <div className="table-head">
           <span style={{ width: '53%' }}>Article</span>
           <span style={{ width: '13%' }}>Author</span>
           <span style={{ width: '15%' }}>Comments</span>
