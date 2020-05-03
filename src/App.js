@@ -20,12 +20,14 @@ class App extends Component {
 
     this.state = {
       result: null,
-      searchTerm: DEFAULT_QUERY
+      searchTerm: DEFAULT_QUERY,
+      pageSearch: ''
     };
 
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchTopStories = this.fetchTopStories.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.onPageSearch = this.onPageSearch.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearch = this.onSearch.bind(this);
   }
@@ -76,13 +78,17 @@ class App extends Component {
     this.setState({ searchTerm: event.target.value });
   }
 
+  onPageSearch(event) {
+    this.setState({ pageSearch: event.target.value })
+  }
+
   componentDidMount() {
     const { searchTerm } = this.state;
     this.fetchTopStories(searchTerm)
   }
 
   render() {
-    const { result, searchTerm } = this.state;
+    const { pageSearch, result, searchTerm } = this.state;
     const page = (result && result.page) || 0;
     return (
       <div className="page">
@@ -105,7 +111,7 @@ class App extends Component {
           <input
             type="text" style={{ width: '200px' }}
             placeholder="Search in page"
-            onChange={this.onSearch}
+            onChange={this.onPageSearch}
           >
           </input>
         </div>
@@ -113,7 +119,7 @@ class App extends Component {
           result ?
             <Table
               list={result.hits}
-              searchTerm={searchTerm}
+              searchTerm={pageSearch}
               onDismiss={this.onDismiss}
             /> :
             <h1>Loading...</h1>
@@ -129,8 +135,11 @@ class App extends Component {
 }
 
 const isSearched = searchTerm =>
-  item =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  item => {
+    if (item.title)
+      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+  }
 
 const Search = ({ onSearch, onSubmit, children }) =>
   <div className="Search">
