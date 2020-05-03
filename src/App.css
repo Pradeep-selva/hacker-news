@@ -45,7 +45,7 @@ body {
 }
 
 a {
-  color: #222;
+  color: #e3e2e1;
 }
 
 a:hover {
@@ -92,6 +92,11 @@ button:hover {
   text-align: center;
 }
 
+.in-page{
+  text-align:left;
+  margin-left: 10px;
+}
+
 .table {
   margin: 20px 0;
 }
@@ -120,6 +125,7 @@ button:hover {
   border: 1px solid #8c7a7a;
   border-radius: 20px;
   position: relative;
+  color: #17181a;
 }
 
 .table-header > span {
@@ -150,4 +156,19 @@ button:hover {
 .button-active {
   border-radius: 0;
   border-bottom: 1px solid #38BB6C;
+}
+
+.table-head{
+  text-decoration: underline;
+  color: #bbc1c9;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.button-search {
+  background: transparent;
+  color:whitesmoke;
+  position: absolute;
+  right: 5px;
+  top: 1px;
 }
