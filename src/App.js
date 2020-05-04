@@ -21,9 +21,11 @@ class App extends Component {
     this.state = {
       result: null,
       searchTerm: DEFAULT_QUERY,
-      pageSearch: ''
+      pageSearch: '',
+      searchKey: ''
     };
 
+    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchTopStories = this.fetchTopStories.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
@@ -32,6 +34,10 @@ class App extends Component {
     this.onSearch = this.onSearch.bind(this);
   }
 
+
+  needsToSearchTopStories(searchKey) {
+    return !this.state.result[searchKey]
+  }
 
   fetchTopStories(searchTerm, page = 0) {
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
@@ -42,15 +48,18 @@ class App extends Component {
 
   onSearchSubmit(event) {
     const { searchTerm } = this.state;
-    this.fetchTopStories(searchTerm);
+    this.setState({ searchKey: searchTerm });
+    if (this.needsToSearchTopStories(searchTerm))
+      this.fetchTopStories(searchTerm);
     event.preventDefault();
   }
 
-  setSearchTopStories(result) {
-    const { hits, page } = result;
+  setSearchTopStories(results) {
+    const { hits, page } = results;
+    const { searchKey, result } = this.state;
 
-    const oldHits = page != 0 ?
-      this.state.result.hits :
+    const oldHits = result && result[searchKey] ?
+      result[searchKey].hits :
       [];
 
     const updatedHits = [
@@ -60,17 +69,29 @@ class App extends Component {
 
     this.setState({
       result: {
-        hits: updatedHits,
-        page
+        ...result,
+        [searchKey]: {
+          hits: updatedHits,
+          page
+        }
       }
     });
   }
 
   onDismiss(id) {
+    const { searchKey, result } = this.state;
+    const { hits, page } = result[searchKey];
+
     const isNotId = item => item.objectID !== id;
-    const updatedList = this.state.result.hits.filter(isNotId);
+    const updatedList = hits.filter(isNotId);
     this.setState({
-      result: { ...this.state.result, hits: updatedList }
+      result: {
+        ...result,
+        [searchKey]: {
+          hits: updatedList,
+          page
+        }
+      }
     });
   }
 
@@ -84,16 +105,30 @@ class App extends Component {
 
   componentDidMount() {
     const { searchTerm } = this.state;
-    this.fetchTopStories(searchTerm)
+    this.setState({ searchKey: searchTerm });
+    this.fetchTopStories(searchTerm);
   }
 
   render() {
-    const { pageSearch, result, searchTerm } = this.state;
-    const page = (result && result.page) || 0;
+    const { pageSearch, result, searchKey } = this.state;
+
+    const page = (
+      result &&
+      result[searchKey] &&
+      result[searchKey].page
+    ) || 0;
+
+    const list = (
+      result &&
+      result[searchKey] &&
+      result[searchKey].hits
+    ) || [];
+
     return (
       <div className="page">
         <div className="interactions">
           <h1 className="fadein">Hacker News Clone</h1>
+          <h1>{(result && result.page)}</h1>
           <Search
             onSearch={this.onSearch}
             onSubmit={this.onSearchSubmit}
@@ -118,7 +153,7 @@ class App extends Component {
         {
           result ?
             <Table
-              list={result.hits}
+              list={list}
               searchTerm={pageSearch}
               onDismiss={this.onDismiss}
             /> :
@@ -127,7 +162,7 @@ class App extends Component {
         {
           result &&
           <div className="interactions">
-            <button onClick={() => this.fetchTopStories(searchTerm, page + 1)}>
+            <button onClick={() => this.fetchTopStories(searchKey, page + 1)}>
               More
           </button>
           </div>
