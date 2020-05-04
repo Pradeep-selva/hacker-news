@@ -1,5 +1,6 @@
 import './index.css';
 import React from "react";
+import PropTypes from "prop-types";
 
 const Search = ({ onSearch, onSubmit, children }) =>
     <div className="Search">
@@ -13,5 +14,11 @@ const Search = ({ onSearch, onSubmit, children }) =>
             </div>
         </form>
     </div>
+
+Search.propTypes = {
+    onSearch: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    children: PropTypes.string
+}
 
 export default Search;

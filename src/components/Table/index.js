@@ -5,6 +5,7 @@ import {
     small_column
 } from '../../constants';
 import React from "react";
+import PropTypes from "prop-types";
 
 const isSearched = searchTerm =>
     item => {
@@ -35,5 +36,11 @@ const Table = ({ list, searchTerm, onDismiss }) =>
             </div>
         ))}
     </div>
+
+Table.propTypes = {
+    list: PropTypes.array.isRequired,
+    searchTerm: PropTypes.string,
+    onDismiss: PropTypes.func.isRequired
+};
 
 export default Table;
