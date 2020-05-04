@@ -93,7 +93,7 @@ class App extends Component {
     return (
       <div className="page">
         <div className="interactions">
-          <h1>Hacker News Clone</h1>
+          <h1 className="fadein">Hacker News Clone</h1>
           <Search
             onSearch={this.onSearch}
             onSubmit={this.onSearchSubmit}
@@ -124,11 +124,16 @@ class App extends Component {
             /> :
             <h1>Loading...</h1>
         }
-        <div className="interactions">
-          <button onClick={() => this.fetchTopStories(searchTerm, page + 1)}>
-            More
+        {
+          result &&
+          <div className="interactions">
+            <button onClick={() => this.fetchTopStories(searchTerm, page + 1)}>
+              More
           </button>
-        </div>
+          </div>
+
+        }
+
       </div >
     );
   }

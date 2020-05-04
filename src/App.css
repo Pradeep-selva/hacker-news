@@ -187,3 +187,20 @@ button:hover {
   right: 5px;
   top: 1px;
 }
+
+.fadein{
+  animation: fade 1.6s ease-in;
+}
+
+@keyframes fade{
+  from{
+    position: relative;
+    top: -100px;
+    opacity: 0;
+  }
+  to{
+    position: relative;
+    top: 0px;
+    opacity: 1;
+  }
+}
