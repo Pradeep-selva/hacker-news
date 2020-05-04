@@ -1,0 +1,115 @@
+.table {
+  margin: 20px 0;
+}
+
+.table-header {
+  display: flex;
+  line-height: 24px;
+  font-size: 16px;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+
+.table-empty {
+  margin: 200px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.table-row {
+  display: flex;
+  line-height: 24px;
+  white-space: nowrap;
+  margin: 10px 0;
+  padding: 10px;
+  background: #695b5b;
+  border: 1px solid #8c7a7a;
+  border-radius: 20px;
+  position: relative;
+  color: #17181a;
+  transition: line-height 0.45s;
+}
+
+.table-row:hover{
+  line-height:50px;
+  -webkit-box-shadow: -2px 4px 24px 0px #000000; 
+  box-shadow: -2px 4px 24px 0px #000000;
+}
+
+.table-header > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+}
+
+.table-row > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+}
+
+.row-title{
+  font-weight: 500;
+  font-style: italic;
+}
+
+.button-inline {
+  background: #475357;
+  color:whitesmoke;
+  position: absolute;
+  right: 20px;
+  top: 2.5px;
+}
+
+.button-active {
+  border-radius: 0;
+  border-bottom: 1px solid #38BB6C;
+}
+
+.table-head{
+  text-decoration: underline;
+  color: #bbc1c9;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  line-height: 24px;
+  white-space: nowrap;
+  margin: 10px 0;
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid #8c7a7a;
+  position: relative;
+}
+
+.button-search {
+  background: transparent;
+  color:whitesmoke;
+  position: absolute;
+  right: 5px;
+  top: 1px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid #dddddd;
+  background: transparent;
+  color: #808080;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #222;
+}
+
+*:focus {
+  outline: none;
+}
+
+a {
+  color: #e3e2e1;
+}
+
+a:hover {
+  text-decoration: underline;
+}

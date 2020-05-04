@@ -1,0 +1,74 @@
+input {
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 10px;
+  border: 1px solid #dddddd;
+  color:whitesmoke;
+}
+
+button {
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid #dddddd;
+  background: transparent;
+  color: #808080;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #222;
+}
+
+*:focus {
+  outline: none;
+}
+
+.page {
+  margin: 20px;
+}
+
+.interactions {
+  text-align: center;
+}
+
+.in-page{
+  text-align:left;
+  margin-left: 10px;
+}
+
+.button-inline {
+  background: #475357;
+  color:whitesmoke;
+  position: absolute;
+  right: 20px;
+  top: 2.5px;
+}
+
+.button-active {
+  border-radius: 0;
+  border-bottom: 1px solid #38BB6C;
+}
+
+.table-head{
+  text-decoration: underline;
+  color: #bbc1c9;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  line-height: 24px;
+  white-space: nowrap;
+  margin: 10px 0;
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid #8c7a7a;
+  position: relative;
+}
+
+.button-search {
+  background: transparent;
+  color:whitesmoke;
+  position: absolute;
+  right: 5px;
+  top: 1px;
+}
