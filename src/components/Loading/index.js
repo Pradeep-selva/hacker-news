@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import './index.css';
 
 const Loading = () =>
     <div>
@@ -10,7 +11,7 @@ const Loading = () =>
             <div className="rect5"></div>
         </div>
         <div className="interactions">
-            <h3>Loading...</h3>
+            <h5>Loading...</h5>
         </div>
     </div>
 

@@ -13,6 +13,18 @@ import {
 import Table from '../Table/index';
 import Search from '../Search/index';
 import Loading from '../Loading/index';
+import { sortBy } from 'lodash';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css'
+const options = [
+  { value: 'NONE', label: 'None' },
+  { value: 'TITLE', label: 'Title' },
+  { value: 'AUTHOR', label: 'Author' },
+  { value: 'COMMENTS', label: 'Comments' },
+  { value: 'POINTS', label: 'points' },
+];
+
+const defaultOption = options[0].value;
 
 class App extends Component {
   _isMounted = false;
@@ -26,7 +38,9 @@ class App extends Component {
       pageSearch: '',
       searchKey: '',
       error: null,
-      isLoading: false
+      isLoading: false,
+      sortKey: 'NONE',
+      isReverseSort: false
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -36,8 +50,12 @@ class App extends Component {
     this.onPageSearch = this.onPageSearch.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.onSort = this.onSort.bind(this);
   }
 
+  onSort(sortKey) {
+    this.setState({ sortKey: sortKey.value });
+  }
 
   needsToSearchTopStories(searchKey) {
     return !this.state.result[searchKey]
@@ -126,7 +144,8 @@ class App extends Component {
       result,
       searchKey,
       error,
-      isLoading
+      isLoading,
+      sortKey
     } = this.state;
 
     const page = (
@@ -166,8 +185,9 @@ class App extends Component {
         <div className="table-head">
           <span style={{ width: '53%' }}>Article</span>
           <span style={{ width: '13%' }}>Author</span>
-          <span style={{ width: '15%' }}>Comments</span>
-          <span style={{ width: '15%' }}>Points</span>
+          <span style={{ width: '13%' }}>Comments</span>
+          <span style={{ width: '13%' }}>Points</span>
+          <span style={{ width: '5%' }}>Archive</span>
         </div>
         <div className="in-page">
           <input
@@ -176,14 +196,23 @@ class App extends Component {
             onChange={this.onPageSearch}
           >
           </input>
-        </div>
+          <div className="dropdown">
+            <Dropdown
+              options={options}
+              onChange={this.onSort}
+              value={sortKey}
+              placeholder='Sort'
+            />
+          </div>
 
+        </div>
         {
           result &&
           <Table
             list={list}
             searchTerm={pageSearch}
             onDismiss={this.onDismiss}
+            sortKey={sortKey}
           />
         }
         {
@@ -197,7 +226,7 @@ class App extends Component {
 
         }
 
-      </div >
+      </div>
     );
   }
 }

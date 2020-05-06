@@ -7,6 +7,7 @@ export const PARAM_SEARCH = 'query=';
 export const PARAM_PAGE = 'page=';
 export const PARAM_HPP = 'hitsPerPage=';
 
-export const large_column = { width: '55%' };
-export const medium_column = { width: '20%' };
+export const large_column = { width: '53%' };
+export const medium_column = { width: '13%' };
+export const semi_med_column = { paddingLeft: '160px' }
 export const small_column = { width: '5%' };
