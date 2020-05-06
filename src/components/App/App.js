@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css'
 import {
   DEFAULT_QUERY,
   DEFAULT_HPP,
@@ -8,23 +10,14 @@ import {
   PATH_SEARCH,
   PARAM_SEARCH,
   PARAM_PAGE,
-  PARAM_HPP,
-} from '../../constants';
+  PARAM_HPP
+} from '../../Constants/constants';
+import { options } from '../../Constants/sorts';
+import Header from '../Header/index';
 import Table from '../Table/index';
 import Search from '../Search/index';
 import Loading from '../Loading/index';
-import { sortBy } from 'lodash';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css'
-const options = [
-  { value: 'NONE', label: 'None' },
-  { value: 'TITLE', label: 'Title' },
-  { value: 'AUTHOR', label: 'Author' },
-  { value: 'COMMENTS', label: 'Comments' },
-  { value: 'POINTS', label: 'points' },
-];
 
-const defaultOption = options[0].value;
 
 class App extends Component {
   _isMounted = false;
@@ -40,7 +33,7 @@ class App extends Component {
       error: null,
       isLoading: false,
       sortKey: 'NONE',
-      isReverseSort: false
+      sortCriteria: '',
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -54,15 +47,25 @@ class App extends Component {
   }
 
   onSort(sortKey) {
-    this.setState({ sortKey: sortKey.value });
+    this.setState({
+      sortKey: sortKey.value,
+      sortCriteria: sortKey.label
+    });
   }
 
   needsToSearchTopStories(searchKey) {
     return !this.state.result[searchKey]
   }
 
-  fetchTopStories(searchTerm, page = 0) {
+  fetchTopStories(searchTerm, page = 0, isMore = false) {
     this.setState({ isLoading: true });
+
+    if (!isMore) {
+      this.setState({
+        sortKey: 'NONE',
+        sortCriteria: ''
+      })
+    }
 
     axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(result => this._isMounted && this.setSearchTopStories(result.data))
@@ -98,7 +101,7 @@ class App extends Component {
           page
         }
       },
-      isLoading: false
+      isLoading: false,
     });
   }
 
@@ -145,7 +148,8 @@ class App extends Component {
       searchKey,
       error,
       isLoading,
-      sortKey
+      sortKey,
+      sortCriteria
     } = this.state;
 
     const page = (
@@ -182,13 +186,9 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <div className="table-head">
-          <span style={{ width: '53%' }}>Article</span>
-          <span style={{ width: '13%' }}>Author</span>
-          <span style={{ width: '13%' }}>Comments</span>
-          <span style={{ width: '13%' }}>Points</span>
-          <span style={{ width: '5%' }}>Archive</span>
-        </div>
+        <Header
+          sortCriteria={sortCriteria}
+        />
         <div className="in-page">
           <input
             type="text" style={{ width: '200px' }}
@@ -218,7 +218,7 @@ class App extends Component {
         {
           !isLoading ?
             <div className="interactions">
-              <button onClick={() => this.fetchTopStories(searchKey, page + 1)}>
+              <button onClick={() => this.fetchTopStories(searchKey, page + 1, true)}>
                 More
           </button>
             </div> :

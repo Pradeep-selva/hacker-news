@@ -4,18 +4,10 @@ import {
     medium_column,
     small_column,
     semi_med_column
-} from '../../constants';
+} from '../../Constants/constants';
 import React from "react";
 import PropTypes from "prop-types";
-import { sortBy } from 'lodash';
-
-const SORTS = {
-    NONE: list => list,
-    TITLE: list => sortBy(list, 'title'),
-    AUTHOR: list => sortBy(list, 'author'),
-    COMMENTS: list => sortBy(list, 'num_comments').reverse(),
-    POINTS: list => sortBy(list, 'points').reverse()
-}
+import { SORTS } from '../../Constants/sorts'
 
 const isSearched = searchTerm =>
     item => {
