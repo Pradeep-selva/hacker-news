@@ -1,6 +1,6 @@
 # Hacker News Clone
 
-![img](./public/ss.png)
+![img](./public/screenshot.png)
 
 A web app built using **React** that can be used to fetch and read tech related news from over the internet.
 This is a clone of the hacker news website and uses the Hacker News API.
