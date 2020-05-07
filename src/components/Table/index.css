@@ -22,11 +22,11 @@
   white-space: nowrap;
   margin: 10px 0;
   padding: 10px;
-  background: #695b5b;
+  background: #434345;
   border: 1px solid #8c7a7a;
   border-radius: 20px;
   position: relative;
-  color: #17181a;
+  color: #c2c2c4;
   transition: line-height 0.45s;
 }
 
@@ -68,7 +68,7 @@
 
 .table-head{
   text-decoration: underline;
-  color: #bbc1c9;
+  color: #e8eded;
   background-color: transparent;
   border-radius: 10px;
   display: flex;
